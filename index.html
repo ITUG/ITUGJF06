@@ -94,13 +94,156 @@
                     <a href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a>
                 </h5>
             </div>
-            <!-- div.step-->
             <div class="step">
+                <h2 class="red">Was ist eine Segmentdatei</h2>
+                <ul class="line-height-one-five"><li>Eine Segment-Datei ist eine TUSTEP-Datei, die in Segmente unterteilt ist.
+                    <li>Inhalt eines Segments kann ein Programm/Script oder ein Text sein.
+                    <li>Die Segmente können einzeln aufgerufen, bearbeitet und abgespeichert werden.
+                </ul>
+                <p class="x-small right">siehe <a href="https://wiki.itug.de/doku.php?id=tustep:tutorial3:grundlagen_segmentdatei">TUSTEP-WIKI</a></p>
+            </div>
+            <div class="step">
+                <h2 class="red">Anweisungen</h2>
+                <dl class="line-height-one-five">
+                    <dt> Einrichten</dt>
+                    <dd><code>#da,segmentdatei,ran-ap</code></dd>
+                
+                <dt>Inhalt einer Segmentdatei in Editordatei holen</dt>
+               
+                        <dd><code>h,segmentdatei,?</code></dd>
+                <dt>Holen eines Segments (bearbeiten)</dt>
+                    <dd><code>h,segmentdatei,segment1</code></dd>
+                    <dt>Retten eines Segments (speichern)</dt>
+                    <dd><code>r,segmentdatei,segment1</code></dd>
+                    <dt>Titelvergabe</dt>
+                    <dd><code>tt=mein erstes Segment</code></dd>
+                </dl>
+                        
+                    
+                
+            </div>
+            <div class="step">
+                <h2 class="red">TUSCRIPT, Segmente und Segmentdateien</h2>
+                <dl class="small">
+                    <dt>Inhalt anzeigen</dt>
+                    <dd>
+                        <pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT,{}
+segmentfile="texte"
+ERROR/STOP OPEN(segmentfile,WRITE,-std-)
+inhalt=SEGMENT(segmentfile,"?")
+</code></pre></dd>
+                    <dt>holen | lesen</dt>
+                    <dd><pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT,{}
+segmentname="tag_211027"
+edit_211027=SEGMENT(segmentfile,segmentname)
+</code></pre></dd>
+                    <dt>retten | schreiben</dt>
+                    <dd>
+                        <pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT,{}
+SEGMENT/ERASE $segmentfile,segmentname=tag_211027
+</code></pre></dd>
+                </dl></div>
+            <div class="step">
+                <h3 class="red up-25 after-50">TUSCRIPT, Segmente und Segmentdateien</h3>
+                <dl class="small">
+                    
+                    <dt>Segmenttitel</dt>
+                    <dd>
+                        <pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT,{}
+SEGMENT/TITLE $segmentfile,segmentname="Eintrag v. Mittwoch 27. Okt. 21"
+</code></pre>
+                    </dd>
+                    <dt>umbenennen</dt>
+                    <dd>
+                        <pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT,{}
+status=RENAME(segment,segment_neu,-,segmentfile)
+</code></pre>
+                    </dd>
+                    <dt>löschen</dt>
+                    <dd>
+                        <pre>
+<code class="linenumbers js">$$ MODE TUSCRIPT
+status=DELETE(segment_neu,-,segmentfile)
+</code></pre>
+                    </dd>
+                </dl>
+                <!--   <p> Demo: <a href="http://localhost/cgi-bin/edit3">CGI-Eingabeformular</a>
+                </p> -->
+                
+                <!--<div class="row">
+                    <dl class="medium">
+                        <dt>Vorteil</dt>
+                        <dd>Lesender und Schreibender Zugriff auf Segmentdatei wird nun auch
+                            ausserhalb des Editors ermöglicht
+                        </dd>
+                        <dd>Segmentdateien werden damit auch für die TUSCRIPTbasierte
+                            Onlineeditionsumgebung eine Option
+                        </dd>
+                    </dl>
+                </div>-->
+            </div>
+            <div class="step">
+                <h2 class="red"><code>cr_segm</code> I</h2>
+                <pre><code class="linenumbers xml">$$ MODE TUSCRIPT,{}
+-- Segmentdatei einrichten:
+segm_file="goethe_segm.tf"
+ERROR/STOP CREATE (segm_file,ran-o,-std-)
+
+-- Inhalt der Ausgangsdatei auf Variable legen:
+file="aufgabe02.tf"
+FETCH dsk = TUSTEP_DSK
+path2file=ADJUST_PATH (dsk,file)
+status=READ (path2file,content)
+IF (status!="OK") THEN
+ PRINT status
+ STOP
+ENDIF
+
+-- Dateizugriff Segment startet bei Segmentkennung &lt;text&gt;:
+BUILD S_TABLE segm_anf=" &lt;text&gt; "
+
+-- Dict zur Kontrolle - Segmentname muss unique sein:
+DICT numa CREATE 999999
+</code></pre>
+            </div>
+            <div class="step">
+                <h2 class="red"><code>cr_segm</code> II</h2>
+ <pre><code class="linenumbers xml">ACCESS q: READ/VARIABLE/STREAM/* content s,segm_kennung/segm_anf+segment+e,typ
+ LOOP/9999999
+  READ/EXIT q
+  IF (typ!=1) CYCLE
+  numatags=FILTER (segment,":&lt;numa&gt;*&lt;/numa&gt;:",-)
+  numawert=EXTRACT (numatags,":&lt;numa&gt;:"|,":&lt;/numa&gt;:")
+  numawert=JOIN(numawert)
+  numa=SQUEEZE(numawert)
+  -- Abbruch, wenn numa nicht unique ist:
+  DICT numa ADD numa
+  -- konformen Segmentnamen aus numa generieren:
+  segm_name=EXCHANGE (numa,":/:_:")
+  segm_name=CONCAT ("g_",segm_name)
+  -- Segmentkennung &lt;text&gt; ins zu rettende Segment integrieren:
+  zeile1alt=SELECT (segment,1)
+  zeile1neu=CONCAT (segm_kennung,zeile1alt)
+  segment=REPLACE (segment,1,zeile1neu)
+  -- Segment in Segmentdatei schreiben:
+  SEGMENT/ERASE $segm_file, $segm_name = segment
+ ENDLOOP
+ENDACCESS q
+</code>
+ </pre>               
+               </div> 
+            <!-- div.step-->
+           <!-- <div class="step">
                 <dl>
                     <dt class="red">03</dt>
                     <dd>Beispiele – Live</dd>
                 </dl>
-            </div>
+            </div>-->
         </div>
         <!-- jquery -->
         <script src="vendor/jquery/jquery-1.11.0.min.js"></script>
