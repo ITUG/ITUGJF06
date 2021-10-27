@@ -106,17 +106,17 @@
                 <h2 class="red">Anweisungen</h2>
                 <dl class="line-height-one-five">
                     <dt> Einrichten</dt>
-                    <dd><code>#da,segmentdatei,ran-ap</code></dd>
+                    <dd><code>Gib Kommando &gt;</code><code>#da,segmentdatei,ran-ap</code></dd>
                 
                 <dt>Inhalt einer Segmentdatei in Editordatei holen</dt>
                
-                        <dd><code>h,segmentdatei,?</code></dd>
+                    <dd><code>Gib Anweisung &gt;</code><code>h,segmentdatei,?</code></dd>
                 <dt>Holen eines Segments (bearbeiten)</dt>
-                    <dd><code>h,segmentdatei,segment1</code></dd>
+                    <dd><code>Gib Anweisung &gt;</code><code>h,segmentdatei,segment1</code></dd>
                     <dt>Retten eines Segments (speichern)</dt>
-                    <dd><code>r,segmentdatei,segment1</code></dd>
+                    <dd><code>Gib Anweisung &gt;</code><code>r,segmentdatei,segment1</code></dd>
                     <dt>Titelvergabe</dt>
-                    <dd><code>tt=mein erstes Segment</code></dd>
+                    <dd><code>Gib Anweisung &gt;</code><code>tt=mein erstes Segment</code></dd>
                 </dl>
                         
                     
@@ -186,6 +186,24 @@ status=DELETE(segment_neu,-,segmentfile)
                         </dd>
                     </dl>
                 </div>-->
+            </div>
+            <div class="step">
+                <h2 class="red">Segmentdatei sortieren <code>#*seso</code></h2>
+                <pre>Standard-Makro: SESO
+                    
+ Mit dem Makro *SESO können Segment-Dateien umkopiert und dabei
+ die darin enthaltenen Segmente nach ihren Namen sortiert werden.
+ Das Makro *SESO hat folgende Spezifikationen:
+                    
+ QUELLE, ZIEL, MODUS und LOESCHEN
+                    
+ Zur Spezifikation MODUS sind folgende Angaben erlaubt:
+ -  Sortieren         Nach den Segmentnamen sortieren
+ -  Sortieren/MEGA    dto. und Mega-Segmentdatei erstellen
+ -  Generieren        Segmentdatei wieder herstellen
+ -  Generieren/MEGA   dto. und Mega-Segmentdatei erstellen
+ Zur Spezifikation MODUS ist SORTIEREN voreingestellt.</pre>
+                <p class="x-small right"><code>#in,seso</code></p>
             </div>
             <div class="step">
                 <h2 class="red">Segment-Datei und Mega-Segmentdatei</h2>
