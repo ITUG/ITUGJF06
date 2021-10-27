@@ -137,7 +137,7 @@ inhalt=SEGMENT(segmentfile,"?")
                     <dd><pre>
 <code class="linenumbers js">$$ MODE TUSCRIPT,{}
 segmentname="tag_211027"
-edit_211027=SEGMENT(segmentfile,segmentname)
+tag_211027=SEGMENT(segmentfile,segmentname)
 </code></pre></dd>
                     <dt>retten | schreiben</dt>
                     <dd>
@@ -186,6 +186,24 @@ status=DELETE(segment_neu,-,segmentfile)
                         </dd>
                     </dl>
                 </div>-->
+            </div>
+            <div class="step">
+                <h2 class="red">Vergleiche mit Original <code>#*vemo</code></h2>
+<pre>
+Das Makro *VEMO vergleicht edierte Daten mit den Originaldaten.
+Es erwartet, dass die Daten in der zur Spezifikation DATEI angegebenen 
+Datei mit dem Editor oder mit dem Kommando #HOLE aus einer
+anderen Datei "geholt" wurden. Die geholten Daten können entweder
+eine gesamte Datei oder nur ein Segment einer Datei umfassen.
+Das Makro vergleicht die Daten in der angegebenen Datei mit den
+entsprechenden Daten in der Datei, aus der sie geholt wurden.
+Zur Spezifikation DATEI ist die Standard-Editor-Datei voreingestellt.
+Außer der Spezifikation DATEI hat das Makro noch die Spezifikationen
+MODUS, LOESCHEN und PROTOKOLL; sie entsprechen denen des Kommandos
+#VERGLEICHE.
+</pre>  
+                <p class="x-small right"><code>#in,vemo</code>
+         <p>Beispiel:        <code>x, #*vemo,&lt;editor&gt;</code>        </p>      
             </div>
             <div class="step">
                 <h2 class="red">Segmentdatei sortieren <code>#*seso</code></h2>
