@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>ITUG JOUR FIXE 05</title>
+        <title>ITUG JOUR FIXE 06</title>
         <!-- meta information -->
         <meta name="author" content="Thomas Kollatz" />
         <meta charset="utf-8" />
@@ -52,21 +52,21 @@
         </div>
         <div id="impress">
             <div class="step">
-                <h5><strong>2021-06-30</strong> ZOOM-Universe </h5>
+                <h5><strong>2021-10-27</strong> ZOOM-Universe </h5>
                 <h5>
                     <strong>
-                        <a href="https://www.itug.de/pages/aktuelles.html">ITUG Jour Fixe 05</a>
+                        <a href="https://www.itug.de/pages/aktuelles.html">ITUG Jour Fixe 06</a>
                     </strong>
                 </h5>
-                <h2 class="red down-100">Im- und Export von Tabellenstrukturen</h2>
-                <h3 class=" down-25">Von EXCEL zu TUSTEP und retour</h3>
-                <h5 class="down-25">Präsentation <a href="https://itug.github.io/ITUGJF05"
-                    title="View the presentation online"
-                    >https://itug.github.io/ITUGJF05</a><br />Daten <a
-                    href="https://github.com/ITUG/ITUGJF05"
-                    >https://github.com/ITUG/ITUGJF05</a><br />Download <a
-                    href="https://github.com/ITUG/ITUGJF05/archive/refs/heads/main.zip"
-                    >Präsentation und Daten</a> (zip)</h5>
+                <h2 class="red down-100">Segmente und Segmentdateien</h2>
+                <h3 class=" down-25">Eine Einführung</h3>
+                <h5 class="down-25">Präsentation <a href="https://itug.github.io/ITUGJF06"
+                        title="View the presentation online"
+                    >https://itug.github.io/ITUGJF06</a><br />Daten <a
+                        href="https://github.com/ITUG/ITUGJF06"
+                    >https://github.com/ITUG/ITUGJF06</a><br />Download <a
+                        href="https://github.com/ITUG/ITUGJF06/archive/refs/heads/main.zip"
+                        >Präsentation und Daten</a> (zip)</h5>
                 <h5 class="down-75">
                     <!--<strong>
                         <a href="https://orcid.org/0000-0001-5485-7681" target="_blank"
@@ -78,8 +78,8 @@
                         target="_blank">@felixf006</a>
                     <br />-->
                     <strong>
-                        <a href="https://orcid.org/0000-0003-1904-1841" target="_blank"
-                            >Thomas Kollatz</a>
+                        <a href="https://orcid.org/0000-0003-1904-1841" target="_blank">Thomas
+                            Kollatz</a>
                     </strong>
                     <!--<a
                     href="http://www.adwmainz.de/en/digitalitaet/digitale-akademie.html"
@@ -95,123 +95,6 @@
                 </h5>
             </div>
             <!-- div.step-->
-            <div class="step">
-                <dl>
-                    <dt class="red">01</dt>
-                    <dd>von EXCEL zu TUSTEP</dd>
-                </dl>
-            </div>
-            <div class="step">
-                <h2 class="red">CSV als Exportformat</h2>
-                <figure class="mfp-lightbox"><a href="resources/img/excel.png">
-                    <img src="resources/img/excel.png" alt="Ansicht einer Excel-Tabelle"/> 
-                </a></figure>
-                <div class="row">
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/saveAS.png"><img src="resources/img/saveAS.png" alt="saveAs"></a></figure></div>
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/saveAsCsv.png"><img src="resources/img/saveAsCsv.png" alt="saveAsCSV"></a></figure></div>
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/csv.png"><img src="resources/img/csv.png" alt="csv"></a></figure>
-                    </div>
-                </div>
-            </div>
-            <div class="step">
-                <h2 class="red">CSV und TUSTEP</h2>
-                <ul class="line-height-one-five"><li>Beim Export aus Excel ist als Trennzeichen zwischen Spalten das Semikolon <code>;</code> festgelegt</li>
-                <li>Spalten, die intern Semikola verwenden, werden mit dem Textqualifizierer<code>"</code> umschlossen</li>
-                <li><span class="highlight">Vorsicht</span> Einige TUSTEP-Zeichen verwenden das Semikolon: <code>#.; #; %; </code></li></ul>
-            </div>
-            <div class="step">
-                <h2 class="red">Arbeiten mit CSV-Dateien</h2>
-                <pre><code>$$ MODE TUSCRIPT,{}
-csv="sprueche.csv"
-path2csv=FULL_NAME (TUSTEP,csv,-std-)
-status=READ (path2csv,daten,UTF8)
-IF (status!="OK") THEN 
- PRINT/ERROR status
- STOP
-ENDIF
-
-MODE DATA
-$$ BUILD S_TABLE trenner=*
-||"*"|%;|#.;|#;|#."||
-|;|
-
-$$ MODE STATEMENT
-LOOP/CLEAR zeile=daten
- x=SPLIT (zeile,trenner,spalte1,spalte2,spalte3)
- PRINT/COLOR:F0 spalte1,": ",spalte2," sagt: ",spalte3
- zeileneu=JOIN (spalte3,";",spalte2,spalte1)
- daten=APPEND (daten,zeileneu)
-ENDLOOP
-
-ziel="sprueche_neu.csv"
-ERROR/STOP CREATE (ziel,fdf-o,-std-)
-
-path2ziel=FULL_NAME (TUSTEP,ziel,-std-)
-status=WRITE (path2ziel,daten,UTF8)
-IF (status!="OK") THEN 
- PRINT/ERROR status
- STOP
-ENDIF</code></pre>
-            </div>
-            <div class="step">
-                <dl>
-                    <dt class="red">02</dt>
-                    <dd>von TUSTEP zu EXCEL</dd>
-                </dl>
-            </div>
-            <div class="step">
-                <h2 class="red">CSV als Importformat</h2>
-                <div class="row">
-                    <div class="eight columns">
-                        <figure class="mfp-lightbox">
-                            <a href="resources/img/csv_neu.png">
-                                <img src="resources/img/csv_neu.png" alt="Ansicht einer CSV-Tabelle"/> 
-                            </a>
-                        </figure>
-                    </div>
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/Importieren_menu.png"><img src="resources/img/Importieren_menu.png" alt="neu"></a></figure>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="four columns">
-                        
-                        
-                        
-                        <figure class="mfp-lightbox"><a href="resources/img/Importieren.png"><img src="resources/img/Importieren.png" alt="Importieren"></a></figure>
-                        <figure class="mfp-lightbox"><a href="resources/img/Importieren_csv.png"><img src="resources/img/Importieren_csv.png" alt="Importieren"></a></figure>
-                    </div>
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/Textkonvertierung.png"><img src="resources/img/Textkonvertierung.png" alt="Excel"></a></figure>
-                        <figure class="mfp-lightbox"><a href="resources/img/Trennzeichen.png"><img src="resources/img/Trennzeichen.png" alt="Spaltentyp"></a></figure>
-                        </div>
-                    <div class="four columns">
-                        <figure class="mfp-lightbox"><a href="resources/img/Spaltentyp.png"><img src="resources/img/Spaltentyp.png" alt="Spaltentyp"></a></figure>
-                        <figure class="mfp-lightbox"><a href="resources/img/EXCEL_neu.png"><img src="resources/img/EXCEL_neu.png" alt="Excel"></a></figure>
-                    </div>
-                </div>
-            </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                
-            
-            
-            
-				
-            
             <div class="step">
                 <dl>
                     <dt class="red">03</dt>

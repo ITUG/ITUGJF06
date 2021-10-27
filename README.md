@@ -1,10 +1,10 @@
-# Im- und Export von Tabellenstrukturen
-## Von EXCEL zu TUSTEP und retour
+# Segmente und Segmentdateien
+## Eine Einführung
 
 presented by : Thomas Kollatz
 
-presented at : ITUG Jour-Fixe #5
+presented at : ITUG Jour-Fixe #6
 
-Zoom 2021-06-30
+Zoom 2021-10-27
 
-online: [https://ITUG.github.io/ITUGJF05/](https://ITUG.github.io/ITUGJF05/)
+online: [https://ITUG.github.io/ITUGJF06/](https://ITUG.github.io/ITUGJF06/)
