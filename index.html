@@ -188,6 +188,19 @@ status=DELETE(segment_neu,-,segmentfile)
                 </div>-->
             </div>
             <div class="step">
+                <h2 class="red">Segment-Datei und Mega-Segmentdatei</h2>
+                <blockquote>Eine "normale" Segment-Datei kann bis zu <span style="color:tomato">9999 Segmente</span> aufnehmen. Sie kann 
+                    jedoch mit dem Kommando 
+                        <code>#RETTE,segmentdatei,-std-,+;+,+</code>
+                      in eine Mega-Segment-Datei konvertiert werden. Eine                  
+                    Mega-Segment-Datei kann bis zu <span style="color:tomato">999999 Segmente</span> aufnehmen; weitere          
+                     Unterschiede zur normalen Segment-Datei gibt es nicht. Beim Einrichten einer 
+                     Segment-Datei sollte als Dateityp RAN angegeben werden, damit schnell auf    
+                     die einzelnen Segmente zugegriffen werden kann.</blockquote>
+                <p class="x-small right">Handbuch</p>
+                
+            </div>
+            <div class="step">
                 <h2 class="red"><code>cr_segm</code> I</h2>
                 <pre><code class="linenumbers xml">$$ MODE TUSCRIPT,{}
 -- Segmentdatei einrichten:
